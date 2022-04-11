@@ -1,0 +1,12 @@
+/** @format */
+
+header {
+  background-color: rgb(29, 29, 29);
+  padding: 1rem;
+  color: white;
+}
+
+header main a {
+  color: gray;
+  text-decoration: none;
+}
