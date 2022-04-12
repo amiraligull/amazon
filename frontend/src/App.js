@@ -12,9 +12,16 @@ function App() {
         <div className="products">
           {data.products.map((product) => (
             <div className="product" key={product.slug}>
-              <img src={product.image} alt={product.description} />
-              <p>{product.name}</p>
-              <p>{product.price}</p>
+              <a href={`/product/${product.slug}`}>
+                <img src={product.image} alt={product.description} />
+              </a>
+              <div className="info">
+                <a href={`/product/${product.slug}`}>
+                  <p>{product.name}</p>
+                </a>
+                <p>${product.price}</p>
+                <button>Add to Cart</button>
+              </div>
             </div>
           ))}
         </div>
