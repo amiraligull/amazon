@@ -1,6 +1,6 @@
 /** @format */
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Homescreen from "./screens/HomeScreen";
 import Productscreen from "./screens/ProductScreen";
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <div>
         <header>
-          <p>Header</p>
+          <Link to={"/"}>Header</Link>
         </header>
         <main>
           <Routes>
