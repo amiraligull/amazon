@@ -10,3 +10,14 @@ header main a {
   color: gray;
   text-decoration: none;
 }
+.products {
+  display: flex;
+
+  flex-wrap: wrap;
+}
+.product {
+  border: 1px solid gray;
+}
+.product img {
+  width: 100%;
+}

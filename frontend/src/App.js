@@ -1,5 +1,6 @@
 /** @format */
 import "./App.css";
+import data from "./data";
 function App() {
   return (
     <div>
@@ -7,7 +8,16 @@ function App() {
         <p>Header</p>
       </header>
       <main>
-        <a href="https://reactjs.org">Products</a>
+        <h1>Featured Products</h1>
+        <div className="products">
+          {data.products.map((product) => (
+            <div className="product" key={product.slug}>
+              <img src={product.image} alt={product.description} />
+              <p>{product.name}</p>
+              <p>{product.price}</p>
+            </div>
+          ))}
+        </div>
       </main>
     </div>
   );
