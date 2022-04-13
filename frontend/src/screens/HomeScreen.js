@@ -1,20 +1,48 @@
 /** @format */
 
-import { useState, useEffect, React } from "react";
+import { useEffect, React, useReducer } from "react";
 import { Link } from "react-router-dom";
-// import data from "../data";
 import axios from "axios";
+import logger from "use-reducer-logger";
+// import data from "../data";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "FETCH_REQUEST":
+      return { ...state, loading: true };
+    case "FETCH_SUCCESS":
+      return { ...state, loading: false, products: action.payload };
+    case "FETCH_FAIL":
+      return { ...state, loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 const Homescreen = () => {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
+  const [{ products, loading, error }, dispatch] = useReducer(logger(reducer), {
+    loading: true,
+    error: " ",
+    products: [],
+  });
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("/api/products");
-      setProducts(result.data);
+      dispatch({ type: "FETCH_REQUEST" });
+      try {
+        const result = await axios.get("/api/products");
+        dispatch({ type: "FETCH_SUCCESS", payload: result.data });
+      } catch (error) {
+        dispatch({ type: "FETCH_FAIL", payload: error.message });
+      }
+
+      // setProducts(result.data);
     };
     fetchData();
   }, []);
   return (
     <div>
+      <h1>Home</h1>
+
       <h1>Featured Products</h1>
       <div className="products">
         {products.map((product) => (
