@@ -1,17 +1,11 @@
 /** @format */
 
-header {
-  background-color: rgb(29, 29, 29);
-  padding: 1rem;
-  color: white;
-}
-
-header main a {
-  color: gray;
-  text-decoration: none;
+.site-container {
+  min-height: 100vh;
 }
 main {
-  padding: 1rem;
+  /* padding: 1rem; */
+  flex: 1;
 }
 .products {
   display: flex;
