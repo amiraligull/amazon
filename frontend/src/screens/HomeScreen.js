@@ -4,6 +4,8 @@ import { useEffect, React, useReducer } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import logger from "use-reducer-logger";
+import pic from "..//images/loading.gif";
+
 // import data from "../data";
 
 const reducer = (state, action) => {
@@ -22,7 +24,7 @@ const Homescreen = () => {
   // const [products, setProducts] = useState([]);
   const [{ products, loading, error }, dispatch] = useReducer(logger(reducer), {
     loading: true,
-    error: " ",
+    error: "",
     products: [],
   });
   useEffect(() => {
@@ -31,8 +33,8 @@ const Homescreen = () => {
       try {
         const result = await axios.get("/api/products");
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
-      } catch (error) {
-        dispatch({ type: "FETCH_FAIL", payload: error.message });
+      } catch (err) {
+        dispatch({ type: "FETCH_FAIL", payload: err.message });
       }
 
       // setProducts(result.data);
@@ -45,20 +47,28 @@ const Homescreen = () => {
 
       <h1>Featured Products</h1>
       <div className="products">
-        {products.map((product) => (
-          <div className="product" key={product.slug}>
-            <Link to={`/product/${product.slug}`}>
-              <img src={product.image} alt={product.description} />
-            </Link>
-            <div className="info">
-              <Link to={`/product/${product.slug}`}>
-                <p>{product.name}</p>
-              </Link>
-              <p>${product.price}</p>
-              <button>Add to Cart</button>
-            </div>
+        {loading ? (
+          <div>
+            <img src={pic} alt="loading" />
           </div>
-        ))}
+        ) : error ? (
+          <div>{error}</div>
+        ) : (
+          products.map((product) => (
+            <div className="product" key={product.slug}>
+              <Link to={`/product/${product.slug}`}>
+                <img src={product.image} alt={product.description} />
+              </Link>
+              <div className="info">
+                <Link to={`/product/${product.slug}`}>
+                  <p>{product.name}</p>
+                </Link>
+                <p>${product.price}</p>
+                <button>Add to Cart</button>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
