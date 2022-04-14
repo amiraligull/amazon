@@ -1,10 +1,13 @@
 /** @format */
 
 import { useEffect, React, useReducer } from "react";
-import { Link } from "react-router-dom";
+
 import axios from "axios";
 import logger from "use-reducer-logger";
-import pic from "..//images/loading.gif";
+import pic from "../images/loading.gif";
+import Productcard from "../components/ProductCard";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 // import data from "../data";
 
@@ -27,6 +30,8 @@ const Homescreen = () => {
     error: "",
     products: [],
   });
+
+  // when app rund this will run automatically
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
@@ -52,20 +57,13 @@ const Homescreen = () => {
         ) : error ? (
           <div>{error}</div>
         ) : (
-          products.map((product) => (
-            <div className="product" key={product.slug}>
-              <Link to={`/product/${product.slug}`}>
-                <img src={product.image} alt={product.description} />
-              </Link>
-              <div className="info">
-                <Link to={`/product/${product.slug}`}>
-                  <p>{product.name}</p>
-                </Link>
-                <p>${product.price}</p>
-                <button>Add to Cart</button>
-              </div>
-            </div>
-          ))
+          <Row>
+            {products.map((product) => (
+              <Col md={3} key={product.slug}>
+                <Productcard product={product} />
+              </Col>
+            ))}
+          </Row>
         )}
       </div>
     </div>
