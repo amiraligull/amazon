@@ -8,6 +8,8 @@ import pic from "../images/loading.gif";
 import Productcard from "../components/ProductCard";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Loading from "../components/Loading";
+import MessageBox from "../components/MessageBox";
 
 // import data from "../data";
 
@@ -51,11 +53,9 @@ const Homescreen = () => {
       <h1 className="h2">Featured Products</h1>
       <div className="products">
         {loading ? (
-          <div>
-            <img src={pic} alt="loading" />
-          </div>
+          <Loading />
         ) : error ? (
-          <div>{error}</div>
+          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <Row>
             {products.map((product) => (
