@@ -5,8 +5,18 @@ import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Rating from "./Rating";
+import { add } from "../store/cartSlice";
+import { useDispatch } from "react-redux";
 
 const Productcard = ({ product }) => {
+  const dispatch = useDispatch();
+
+  const addToHandler = (product) => {
+    // in the dispath add is the our action which we made in cartslice and product parameter is the payload
+
+    dispatch(add(product));
+  };
+
   return (
     <Card key={product.slug}>
       <Link to={`/product/${product.slug}`}>
@@ -22,7 +32,7 @@ const Productcard = ({ product }) => {
         </Link>
         <Rating rating={product.rating} numReviews={product.numReviews} />
         <Card.Text>${product.price}</Card.Text>
-        <Button>Add to Cart</Button>
+        <Button onClick={() => addToHandler(product)}>Add to Cart</Button>
       </Card.Body>
     </Card>
   );

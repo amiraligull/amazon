@@ -10,10 +10,14 @@ import Rating from "../components/Rating";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/esm/Button";
 import Badge from "react-bootstrap/Badge";
+
 import { Helmet } from "react-helmet-async";
 import MessageBox from "../components/MessageBox";
 import Loading from "../components/Loading";
 import { getError } from "../util";
+import { add } from "../store/cartSlice";
+import { useDispatch } from "react-redux";
+// import { Store } from "../Store";
 
 // reducer function for managing state and requests and also for error  handling
 const reducer = (state, action) => {
@@ -30,6 +34,13 @@ const reducer = (state, action) => {
 };
 
 const Productscreen = () => {
+  const cartdispatch = useDispatch();
+
+  const addToHandler = (product) => {
+    // in the dispath add is the our action which we made in cartslice and product parameter is the payload
+    cartdispatch(add(product));
+  };
+
   const params = useParams();
   const { slug } = params;
 
@@ -52,6 +63,14 @@ const Productscreen = () => {
     };
     fetchData();
   }, [slug]);
+
+  // const { state, dispatch: ctxDispatch } = useContext(Store);
+  // const addToCartHandler = () => {
+  //   ctxDispatch({
+  //     type: "CART_ADD_ITEM",
+  //     payload: { ...product, quantity: 1 },
+  //   });
+  // };
   return loading ? (
     <Loading />
   ) : error ? (
@@ -103,18 +122,14 @@ const Productscreen = () => {
                 </Row>
               </ListGroup.Item>
               {/*  we hav only one can conditoin we can use product.counstock > 0 &&(<jsx gos here>) */}
-              {product.countInStock > 0 ? (
+              {product.countInStock > 0 && (
                 <ListGroup.Item>
                   <div className="d-grid ">
-                    <Button variant="primary" size="lg">
-                      Add To Cart
-                    </Button>
-                  </div>
-                </ListGroup.Item>
-              ) : (
-                <ListGroup.Item>
-                  <div className="d-grid ">
-                    <Button variant="primary" disabled size="lg">
+                    <Button
+                      variant="primary"
+                      size="lg"
+                      onClick={() => addToHandler(product)}
+                    >
                       Add To Cart
                     </Button>
                   </div>

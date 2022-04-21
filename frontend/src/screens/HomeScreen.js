@@ -4,7 +4,7 @@ import { useEffect, React, useReducer } from "react";
 
 import axios from "axios";
 import logger from "use-reducer-logger";
-import pic from "../images/loading.gif";
+// import pic from "../images/loading.gif";
 import Productcard from "../components/ProductCard";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
