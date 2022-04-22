@@ -13,7 +13,7 @@ const Productcard = ({ product }) => {
 
   const addToHandler = (product) => {
     // in the dispath add is the our action which we made in cartslice and product parameter is the payload
-
+    // place now check
     dispatch(add(product));
   };
 
